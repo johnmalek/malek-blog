@@ -78,7 +78,7 @@ class Comment(db.Model):
     __tablename__ = "comments"
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.Text)
-    author_id = db.Column(db.String, db.ForeignKey("users.id"))
+    author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     post_id = db.Column(db.Integer, db.ForeignKey("blog_posts.id"))
     parent_post = relationship("BlogPost", back_populates="comments")
     comment_author = relationship("User", back_populates="comments")
