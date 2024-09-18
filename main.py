@@ -54,9 +54,6 @@ class User(UserMixin, db.Model):
     comments = relationship("Comment", back_populates="comment_author")
 
 
-db.create_all()
-
-
 # CONFIGURE TABLES
 
 class BlogPost(db.Model):
@@ -72,9 +69,6 @@ class BlogPost(db.Model):
     comments = relationship("Comment", back_populates="parent_post")
 
 
-db.create_all()
-
-
 # COMMENTS TABLE
 class Comment(db.Model):
     __tablename__ = "comments"
@@ -86,7 +80,8 @@ class Comment(db.Model):
     comment_author = relationship("User", back_populates="comments")
 
 
-db.create_all()
+with app.app_context():
+    db.create_all()
 
 
 @app.route('/')
