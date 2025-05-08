@@ -7,7 +7,6 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
-from flask_gravatar import Gravatar
 from functools import wraps
 import os
 
@@ -16,14 +15,6 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(12)
 ckeditor = CKEditor(app)
 Bootstrap(app)
-gravatar = Gravatar(app,
-                    size=100,
-                    rating='g',
-                    default='retro',
-                    force_default=False,
-                    force_lower=False,
-                    use_ssl=False,
-                    base_url=None)
 
 # CONNECT TO DB
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
@@ -153,7 +144,7 @@ def show_post(post_id):
         db.session.add(new_comment)
         db.session.commit()
         return redirect(url_for('get_all_posts'))
-    return render_template("post.html", gravatar=gravatar, form=form, date=comment_date, post=requested_post, current_user=current_user, year=current_year)
+    return render_template("post.html", form=form, date=comment_date, post=requested_post, current_user=current_user, year=current_year)
 
 
 @app.route("/about")
